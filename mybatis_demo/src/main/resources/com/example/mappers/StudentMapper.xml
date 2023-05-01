@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+        PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+        "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="src.main.java.com.example.mappers.StudentMapper">
+    <resultMap id="studentResultMap" type="Student">
+        <id property="sid" column="sid"/>
+        <result property="name" column="name"/>
+        <result property="age" column="age"/>
+        <result property="gender" column="gender"/>
+        <result property="className" column="class_name"/>
+        <result property="major" column="major"/>
+        <result property="phoneNumber" column="phone_number"/>
+        <result property="emailAddress" column="email_address"/>
+    </resultMap>
+
+<!--    int insertStudent-->
+    <insert id="insertStudent" useGeneratedKeys="true" keyProperty="sid">
+        insert into student values(null, #{name}, #{age}, #{gender}, #{className}, #{major}, #{phoneNumber}, #{emailAddress})
+    </insert>
+
+<!--    void updateUser();-->
+    <update id="updateUser">
+        update student set name='Ragnaro' where name='jack'
+    </update>
+
+<!--    Student getStudentByName(String name);-->
+<!--    查询需要设置结果类型-->
+    <select id="getStudentByName" resultType="Student">
+        select * from student where name=#{name}
+    </select>
+
+<!--    Student getStudentByMap(String name);-->
+    <select id="getStudentByMap" resultType="map">
+        select * from student where name = #{name}
+    </select>
+
+<!--    byId-->
+    <select id="getStudentById" resultMap="studentResultMap">
+        select * from student where sid=#{sid}
+    </select>
+
+<!--    List<Student> getAllStudent();-->
+    <select id="getAllStudent" resultType="Student">
+        select * from student;
+    </select>
+
+<!--    Integer getCount()-->
+    <select id="getCount" resultType="int">
+        select count(*) from student
+    </select>
+</mapper>
